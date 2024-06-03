@@ -1,0 +1,952 @@
+/*  For licensing see accompanying LICENSE file.
+    Copyright (C) 2024 Apple Inc. All Rights Reserved.
+*/
+
+@font-face {
+  font-family: "ColfaxAI";
+  src: url(https://cdn.openai.com/API/fonts/ColfaxAIRegular.woff2) format("woff2"),
+    url(https://cdn.openai.com/API/fonts/ColfaxAIRegular.woff) format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ColfaxAI";
+  src: url(https://cdn.openai.com/API/fonts/ColfaxAIBold.woff2) format("woff2"),
+    url(https://cdn.openai.com/API/fonts/ColfaxAIBold.woff) format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+
+.main,
+.main input,
+.main {
+  font-size: 16px;
+  line-height: 24px;
+  font-family: "ColfaxAI", Helvetica, sans-serif;
+  position: relative;
+}
+
+.main {
+  padding-top: 20px;
+  display: flex;
+  background: #343541;
+  color: white;
+  flex-direction: column;
+  align-items: center;
+  margin: -8px;
+}
+
+.main .icon {
+  width: 34px;
+}
+
+.main h3 {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: bold;
+  color: #202123;
+  margin: 16px 0 40px;
+}
+
+.main h4 {
+  font-size: 20px;
+  line-height: 0px;
+}
+
+.main form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
+.main input[type="text"],
+.main textarea,
+.main pre {
+  border-radius: 4px;
+}
+
+.formContainer {
+  color: black;
+}
+
+.formContainer .userPromptInput {
+  padding: 12px 16px;
+  border: 1px solid #10a37f !important;
+}
+
+.formContainer .modelSelect {
+  width: 140px;
+  position: absolute;
+  right: 10px;
+  top: -68px;
+  display: flex;
+  align-items: center;
+}
+
+.formContainer .modelSelect label {
+  margin-right: 7px;
+  color: white;
+}
+
+.formContainer .modelSelect select {
+  padding: 8px 10px;
+  border-radius: 4px;
+}
+
+.main ::placeholder {
+  color: #8e8ea0;
+  opacity: 1;
+}
+
+.main input[type="submit"],
+.submitButton {
+  padding: 12px 0;
+  color: #fff;
+  background-color: #10a37f;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.main .result {
+  font-weight: bold;
+  margin-top: 40px;
+}
+
+.main .inputContainer,
+.main .outputContainer {
+  width: 900px;
+  margin: 0 auto 45px;
+}
+
+.inputContainer .tabs {
+  display: flex;
+  gap: 10px;
+}
+
+.inputContainer button {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.inputContainer button:hover {
+  cursor: pointer;
+}
+
+.inputContainer button.active {
+  background: #e2f8ff !important;
+}
+
+.main .hint {
+  color: #939292;
+  margin-bottom: 0;
+  font-size: small;
+}
+
+.main .svgInputContainer {
+  display: flex;
+  gap: 15px;
+}
+
+.svgInputContainer,
+.formContainer,
+.svgOutputContainer {
+  background: #F2F2F7;
+  border-radius: 5px;
+  padding: 25px;
+  margin: 25px 0;
+}
+
+.outputContainerLabel {
+  display: flex;
+  column-gap: 10px;
+  align-items: center;
+}
+
+.outputContainerLabel:hover {
+  cursor: pointer;
+}
+
+.gptOutputContainer {
+  background: #F2F2F7;
+  border-radius: 5px;
+  padding: 25px;
+  margin: 0 0 25px;
+  max-height: 300px;
+  overflow-y: scroll;
+  transition: all 500ms ease-out;
+  resize: vertical;
+}
+
+.completeNote {
+  margin-left: auto;
+  color: white;
+}
+
+.prompt {
+  height: 100px;
+  font-family: monospace;
+  margin: 10px 0;
+  background: black;
+  color: white;
+  padding: 10px;
+  overflow: scroll;
+  white-space: pre-wrap;
+  resize: vertical;
+}
+
+.note {
+  color: black;
+  margin: 15px 0 0;
+}
+
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
+
+.main code {
+  background: black;
+  color: yellowgreen;
+  padding: 2px 3px;
+  border-radius: 3px;
+}
+
+.sliderOutputForm {
+  height: 475px;
+  overflow: scroll;
+  background: #1a1b26;
+  color: white;
+  padding: 0px 25px 10px;
+  border-radius: 5px;
+  font-family: monospace;
+}
+
+.elName {
+  color: #4d9cff;
+}
+
+.elChild {
+  margin-left: 20px;
+}
+
+.formEl {
+  margin: 5px 0;
+}
+
+.formEl div:not(.formElClose) {
+  margin-left: 25px;
+  margin-top: 5px;
+}
+
+.propertyName {
+  color: #35ffbc;
+}
+
+.propertyID {
+  color: #af88ff;
+}
+
+.sliderOutputForm input {
+  background-color: white;
+  margin-right: 10px;
+  font-family: monospace;
+  border: 2px solid white;
+  border-radius: 5px;
+}
+
+.sliderOutputCode {
+  white-space: pre-wrap;
+  background: black;
+  color: #0db9d7;
+  font-family: monospace;
+  padding: 25px;
+}
+
+.svgOutputContainer form {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 20px 0;
+  flex-direction: column-reverse;
+}
+
+.cssForm {
+  display: block !important;
+}
+
+.svgOutputContainer form label {
+  margin-right: 5px;
+}
+
+.svgOutputContainer form input {
+  padding: 4px 8px;
+  margin: 0 3px;
+  border-radius: 5px;
+  box-shadow: 0 0 2px 2px #9090901f;
+  text-align: center;
+}
+
+.svgOutputContainer form label:not(:first-of-type) {
+  margin-left: 5px;
+}
+
+.main .helpText {
+  margin: 10px 0px;
+  white-space: pre-wrap;
+}
+
+.main .promptHint {
+  font-size: small;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  color: #8a8a8a;
+}
+
+.segControlsContainer {
+  --highlight-width: auto;
+  --highlight-x-pos: 0;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.segControls {
+  display: inline-flex;
+  justify-content: space-between;
+  background: #51516b;
+  border: 1px solid #e1e1e1;
+  border-radius: 10px;
+  max-width: 500px;
+  padding: 0px;
+  overflow: hidden;
+  position: relative;
+}
+
+.segControls input {
+  opacity: 0;
+  margin: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  cursor: pointer;
+  height: 100%;
+}
+
+.segControls .segment:first-of-type {
+  border: none;
+}
+
+.segControls .segment:last-of-type {
+  border: none;
+}
+
+.segControls .segment {
+  border-left: 1px solid #9999c0;
+  border-right: 1px solid #9999c0;
+}
+
+.segment {
+  min-width: 100px;
+  position: relative;
+  text-align: center;
+  z-index: 1;
+}
+
+.segment label {
+  cursor: pointer;
+  display: block;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 2px 20px;
+  position: relative;
+}
+
+.segment label:hover {
+  cursor: pointer;
+}
+
+.segment:first-of-type label {
+  border-radius: 10px 0 0 10px;
+}
+
+.segment:last-of-type label {
+  border-radius: 0 10px 10px 0;
+}
+
+.segment.active label {
+  color: #fff;
+  background-color: #0A84FF;
+}
+
+.segment label svg {
+  width: 20px;
+  height: 20px;
+  margin-top: 5px;
+}
+
+.checkbox {
+  text-align: right;
+  margin-top: -60px;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  color: white;
+}
+
+.checkboxExtendCSS {
+  margin-top: -54px;
+  margin-right: 350px;
+}
+
+.checkbox input {
+  margin-right: 5px;
+}
+
+.propertyFormContainer {
+  border-radius: 3px;
+}
+
+.propertyForm {
+  display: flex;
+  color: black;
+}
+
+.propertyForm .elChild {
+  margin: 10px 0;
+
+}
+
+.propertyForm .propertyName {
+  color: initial;
+}
+
+.propertyForm input {
+  border-radius: 3px;
+  border: 1px solid #e2e2e2;
+  box-shadow: 0 0 2px 2px #7b7b7b1a
+    /* padding: 0px 15px !important; */
+}
+
+.propertyForm input[type='number'] {
+  width: 30px;
+}
+
+.propertyForm input::-webkit-outer-spin-button,
+.propertyForm input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.propertyForm .transformLabel {
+  margin-bottom: 10px;
+}
+
+.propertyForm .selectorDiv {
+  margin-bottom: 30px;
+}
+
+.propertyForm .paramElDiv {
+  font-weight: bold;
+  background: #b9dcff !important;
+  border-radius: 5px 5px 0 0;
+  padding: 5px 15px !important;
+}
+
+.propertyForm .selectorDiv>div {
+  padding: 10px 15px;
+  background: white;
+}
+
+.propertyForm .keyframePropertiesContainer {
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.propertyForm .propertiesContainer {
+  border-radius: 0 0 5px 5px;
+}
+
+.propertiesContainer>div {
+  margin-bottom: 10px;
+}
+
+.outputEditorContainer {
+  display: flex;
+  column-gap: 10px;
+  width: 100%;
+}
+
+.outputEditor {
+  width: 75%;
+}
+
+.keyframeProperties {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  align-items: baseline;
+}
+
+.keyframeProperties .keyframeEl {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.keyframeEl label {
+  color: #818181;
+  margin-left: 10px;
+}
+
+.sketch-picker input {
+  width: 10px !important;
+}
+
+.colorPickerContainer {
+
+  width: fit-content;
+  padding: 5px 10px;
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1);
+  display: inline-flex;
+  column-gap: 5px;
+  cursor: pointer;
+  margin: 0px 5px;
+}
+
+.colorPickerContainer .swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border: 0.5px solid #818181;
+}
+
+.submitButtonContainer {
+  text-align: center;
+}
+
+.submitButton {
+  width: 500px;
+}
+
+.dropdown {
+  display: inline-block;
+  width: fit-content;
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1);
+  border-radius: 3px;
+}
+
+.hiddenSegmentedControls {
+  display: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.unit {
+  color: #818181;
+}
+
+.rightArrow {
+  margin: 0 5px;
+}
+
+.bezierButton {
+  margin: 0 10px !important;
+}
+
+.bezierButton .placeholder {
+  color: #0A84FF;
+  text-decoration: underline;
+}
+
+.bezierButton .placeholder:hover {
+  cursor: pointer;
+}
+
+.bezierEditorPopover .bezierCurveEditor {
+  position: absolute;
+  z-index: 2;
+  background: white;
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1);
+  padding: 10px;
+  width: 275px;
+}
+
+.bezierValue {
+  font-family: monospace;
+  color: #818181;
+}
+
+.bezierValue:hover,
+.bezierValue.inactive {
+  color: #0A84FF;
+}
+
+.bezierValue:hover {
+  cursor: pointer;
+}
+
+.bezierInfo {
+  margin-left: 10px;
+}
+
+.errorMessage {
+  background: black;
+  color: #ff3e3e;
+  font-family: monospace;
+  padding: 15px;
+  margin: 10px 0;
+}
+
+/* multiples editor */
+.promptTextArea {
+  white-space: pre-wrap;
+  font-size: 16px;
+  line-height: 24px;
+  font-family: "ColfaxAI", Helvetica, sans-serif;
+  padding: 12px 16px;
+  border: 1px solid #10a37f !important;
+  margin-bottom: 10px;
+}
+
+.multipleRenderingContainer {
+  display: flex;
+  column-gap: 20px;
+  margin-bottom: 10px;
+  flex-flow: wrap;
+}
+
+.editorContainer {
+  width: 100%;
+  order: 100;
+}
+
+.optionContainer {
+  position: relative;
+  display: inline;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  border: 3px solid transparent;
+  margin-bottom: 20px;
+  color: black;
+  background: white;
+  transition: all 500ms ease-out;
+}
+
+.optionContainer button {
+  background: #10a37f;
+  padding: 12px 20px;
+  color: white;
+  border: none;
+  margin: 10px 0;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: "ColfaxAI", Helvetica, sans-serif;
+}
+
+.optionContainer:hover {
+  cursor: pointer;
+  border: 3px solid #dcdcdc;
+}
+
+.optionContainer.active {
+  border: 3px solid #0A84FF;
+}
+
+.optionContainer.highlight {
+  background: #dfeeff;
+}
+
+.explanation {
+  max-width: 230px;
+  font-size: small;
+  line-height: 20px;
+  margin-top: 10px;
+  color: #676767;
+}
+
+.inline {
+  display: inline;
+}
+
+.link {
+  position: absolute;
+  right: 100px;
+  top: 25px;
+  color: white;
+}
+
+.starContainer {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.starContainer svg {
+  border: none;
+}
+
+.savedDesigns {
+  display: flex;
+  position: fixed;
+  right: 0px;
+  width: 160px;
+  background: white;
+  z-index: 100;
+  flex-direction: column;
+  top: 0;
+  padding: 10px;
+  height: 100%;
+  overflow-y: scroll;
+  color: black;
+  text-align: center;
+  transition: all 250ms ease-out;
+}
+
+.savedDesignsMin {
+  height: 9px;
+  overflow: hidden;
+}
+
+.savedDesigns .savedDesignsLabel {
+  background: black;
+  color: white;
+  margin: -15px -15px 10px;
+  padding-top: 10px;
+
+}
+
+.savedDesigns .savedDesignsLabel:hover {
+  cursor: pointer;
+}
+
+.savedDesigns .backpackItem:hover {
+  cursor: pointer;
+  transition: all 500ms ease-out;
+}
+
+.savedDesigns .backpackItem {
+  border-bottom: 1px solid #eee;
+  margin: 10px 0;
+  padding-bottom: 10px;
+}
+
+.savedDesigns .backpackItemLabel {
+  color: #8a8a8a;
+  text-align: center;
+  font-size: smaller;
+}
+
+.iterationContainer {
+  width: 100%;
+  padding-top: 20px;
+  background: #343541;
+  color: white;
+}
+
+.iterationContainer .svgInputContainer {
+  background: white;
+  color: black;
+}
+
+.iterationContainer.alternate {
+  /* background: #F2F2F7; */
+  background: #454654;
+}
+
+.iterationContainer.alternate .svgInputContainer,
+.iterationContainer.alternate .formContainer {
+  background: white;
+  color: black;
+}
+
+/* Segmented Controls */
+.segmentedControls {
+  display: inline-block;
+  background: #51516b;
+  color: white;
+  margin: 0 0 10px;
+}
+
+.segmentedControls :global(.rc-segmented-group) {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  justify-items: flex-start;
+  width: 100%;
+  border-radius: 2px;
+}
+
+.segmentedControls :global(.rc-segmented-item) {
+  position: relative;
+  min-height: 28px;
+  padding: 5px 10px 0px;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  border-left: 1px solid #9393c4;
+  border-right: 1px solid #9393c4;
+}
+
+.segmentedControls :global(.rc-segmented-item-selected) {
+  background-color: #0A84FF;
+  color: white;
+}
+
+.segmentedControls :global(.rc-segmented-item-disabled),
+.segmentedControls :global(.rc-segmented-item-disabled:hover),
+.segmentedControls :global(.rc-segmented-item-disabled:focus) {
+  color: white;
+  cursor: not-allowed;
+}
+
+.segmentedControls :global(.rc-segmented-item-label) {
+  z-index: 2;
+  line-height: 24px;
+}
+
+.segmentedControls :global(.rc-segmented-item-input) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+  display: none;
+}
+
+.segmentedControls :global(.rc-segmented-thumb) {
+  background-color: #0A84FF;
+  position: absolute;
+  width: 0;
+  height: 100%;
+}
+
+.summaryTab {
+  position: fixed;
+  bottom: 0;
+  left: 10px;
+  background: black;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 10px 10px 0 0;
+}
+
+.summary :global h4 {
+  display: none;
+}
+
+.summary .editorContainer,
+.summary .toggle,
+.summary .modelSelect,
+.summary .generateBtn,
+.summary .prompt,
+.summary .svgInputEditor,
+.summary .refineBtn,
+.summary .tabs,
+.summary .segmentedControls,
+.summary .outputContainer {
+  display: none;
+  opacity: 0;
+  transition: all 500ms ease-in-out;
+}
+
+.summary .svgInputContainer {
+  width: fit-content;
+  column-gap: 0;
+}
+
+.summary .inputContainer,
+.summary .formContainer,
+.summary .outputContainer {
+  margin-bottom: 0;
+}
+
+.summary .promptTextArea {
+  font-family: monospace;
+  background: #4361cb;
+  color: white;
+  height: 124px;
+  margin-bottom: 0px;
+  border-radius: 3px;
+  border: none !important;
+  width: 871px;
+  height: auto;
+}
+
+.summary .formContainer {
+  padding: 0;
+  background: transparent;
+}
+
+.iterationLabel {
+  text-align: right;
+  display: none;
+}
+
+.closeIteration {
+  width: 900px;
+  margin: 0 auto -40px;
+  text-align: right;
+}
+
+.closeIteration:hover {
+  cursor: pointer;
+}
+
+.summary .iterationContainer .iterationLabel {
+  display: block;
+  width: 900px;
+  margin: 0 auto -10px;
+  text-align: right;
+  color: #ccc;
+}
+
+.exportLink {
+  position: fixed;
+  bottom: 10px;
+  right: 50px;
+  background: #4e4e4e;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 100;
+}
+
+.exportLink:hover {
+  cursor: pointer;
+}
+
+.logForm textArea {
+  font-size: 16px;
+  padding: 12px 16px;
+  font-family: ColfaxAI, Helvetica, sans-serif;
+}
+
+.mainLogs .promptTextArea {
+  width: 95%;
+  white-space: pre-wrap;
+  font-size: 16px;
+  line-height: 24px;
+  font-family: ColfaxAI, Helvetica, sans-serif;
+  padding: 12px 16px;
+}
+
+.logSVGInput{
+  background: white;
+  padding: 20px;
+  margin-top: 30px;
+  border-radius: 5px;
+}
+
+.mainLogs .iterationContainer:nth-of-type(odd){
+  background: #454654;
+}

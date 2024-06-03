@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Tseng"
+  given-names: "Tiffany"
+  orcid: "https://orcid.org/0000-0003-4972-4061"
+- family-names: "Cheng"
+  given-names: "Ruijia"
+  orcid: "https://orcid.org/0000-0002-2377-9550"
+- family-names: "Nichols"
+  given-names: "Jeffrey"
+  orcid: "https://orcid.org/0000-0002-9290-1409"
+title: "Keyframer: Empowering Animation Design using Large Language Models"
+version: 0.1.0
+doi: 10.48550/arXiv.2402.06071
+date-released: 2024-05-20
+url: "github_url_placeholder"
